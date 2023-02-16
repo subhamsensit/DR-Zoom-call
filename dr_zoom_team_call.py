@@ -9,6 +9,7 @@ import winreg
 import configparser
 import logging
 import time,os,datetime
+import subprocess
 from RPA.Windows import Windows
 
 
@@ -54,7 +55,6 @@ class Zoom_Team_Dr:
     #     This constructor will initialize values required for zoom call
     #     """
     #     pass
-    zoom_window= Windows()
     def getter_dr_registry(self,name):
         """
         This will return the state of dr registry
@@ -121,6 +121,7 @@ class Zoom_Team_Dr:
         # Getting zoom meeting details
         meeting_id = config["zoom-call-details"]["zoom-meeting-code"]
         passcode = config["zoom-call-details"]["password"]
+        meeting_text_element = "name:zoom-test-dr"
         try:
             logger.debug("opening zoom app")
             library.windows_search("Zoom",3)
@@ -139,26 +140,43 @@ class Zoom_Team_Dr:
             library.control_window("name:\"Enter meeting passcode\"")
             #entering passcode
             time.sleep(2)
-            library.send_keys("name:\"Meeting Passcode\"",passcode,1)
+            library.send_keys("name:\"Meeting Passcode\"",passcode)
             # click join meeting button
             library.click("name:\"Join Meeting\"")
             # switch to waiting for host window
 
             library.control_window("name:\"Waiting for Host\"")
+            # get elements from zoom window
+            meeting_text=library.get_elements(meeting_text_element)
+            logger.debug(f"zoom call elements {meeting_text}")
+            # printing the team text
+            for ele in meeting_text:
+                logger.debug(f"printing zoom call elements{ele}")
+            if len(meeting_text)==1:
+                # meeting text found so return True
+                logger.debug(f"Zoom Test  text found returning {True}")
+                return True
+            else:
+                logger.debug(f"Zoom Test  text found returning {False}")
+                return False
 
+            time.sleep(10)
 
         except Exception as e:
             logger.debug(f"Error occured as {e}")
             return False
         finally:
-            # closing the app
+            # closing the apps
 
             library.close_current_window()
+            subprocess.call(["taskkill","/F","/IM","Zoom.exe"])
+            subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
 
 if __name__ == "__main__":
-        obj= Zoom_Team_Dr()
-        obj.zoom_call_start()
 
+        obj = Zoom_Team_Dr()
+        res = obj.zoom_call_start()
+        logger.debug(f"Zoom function return {res}")
         # res=obj.setter_dr_registry(name=reg_name,state="off")
         # logger.debug(res)
         # res=obj.getter_dr_registry(reg_name)
