@@ -31,22 +31,21 @@ Have monitor if fails, send an email - Separate script with Prod DR DB
 
 
 """
-# from lib.common import common_zcc
+from lib.common import common_zcc
 # from lib.common import common_desktop
 # from lib.common import helper
 import winreg
 import configparser
 import logging
-import time,os
+import time, os
 import subprocess
 from RPA.Windows import Windows
 import pyautogui
 from datetime import datetime
 
-
 # declaring object of Windows RPA apackage
-windows= Windows()
-#setting up logging
+windows = Windows()
+# setting up logging
 
 LOG_TIMESTAMP_FORMAT = "%Y-%m-%d %H-%M-%S"
 
@@ -54,39 +53,38 @@ TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
 
 # below logger will create log file db_certification.log under current directory
 # file path for logging
-current_directory=os.getcwd()
+current_directory = os.getcwd()
 
-log_path_certification=os.path.join(current_directory,"Logs","Dr-zoom.log")
-logger=logging.getLogger("Dr")
+log_path_certification = os.path.join(current_directory, "Logs", "Dr-zoom.log")
+logger = logging.getLogger("Dr")
 logger.setLevel(logging.DEBUG)
-format=logging.Formatter("'%(asctime)s %(message)s")
+format = logging.Formatter("'%(asctime)s %(message)s")
 
-fh=logging.FileHandler(log_path_certification,mode="w")
+fh = logging.FileHandler(log_path_certification, mode="w")
 fh.setFormatter(format)
 logger.addHandler(fh)
 logger.debug("======Zoom Dr log ========")
 
-
-
 config = configparser.ConfigParser()
-configuration_file_path=os.path.join(current_directory,"configurations.ini")
+configuration_file_path = os.path.join(current_directory, "configurations.ini")
 config.read(configuration_file_path)
 
 reg_path = r"SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler"
-reg_name="dr.zia.path-zoomtest.com"
+reg_name = "dr.zia.path-zoomtest.com"
 logger.debug(f"registry path {reg_path}")
 
-class Zoom_Team_Dr:
 
+class Zoom_Team_Dr:
     """
     This class will initiate a Zoom call and Team call in dr state and validate the behaviour
     """
+
     # def __init__(self):
     #     """
     #     This constructor will initialize values required for zoom call
     #     """
     #     pass
-    def getter_dr_registry(self,name):
+    def getter_dr_registry(self, name):
         """
         This will return the state of dr registry
         :param registry_path:
@@ -102,29 +100,26 @@ class Zoom_Team_Dr:
         except WindowsError:
             return None
 
-
-
-
-    def setter_dr_registry(self,name,state="on"):
+    def setter_dr_registry(self, name, state="on"):
         """
         This will on or off the registry to trigger dr on or off
         registry path is Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
         and value is v=1;b=on for dr or and b=off for dr off
         domain name
-        :param stete: dr.zia.path-zoomtest.com
-        :return:
+        :param state: dr.zia.path-zoomtest.com
+        :return: True if setting successful or else False
         """
         try:
             winreg.CreateKey(winreg.HKEY_LOCAL_MACHINE, reg_path)
-           # registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path, 0,
-                                        #  winreg.KEY_WRITE)
+            # registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path, 0,
+            #  winreg.KEY_WRITE)
             # in registry in regedit give permission or else will throw error
             registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path, 0,
-                                         winreg.KEY_SET_VALUE)
+                                          winreg.KEY_SET_VALUE)
             # turn it on or pff based on state
             if state == "on":
                 # set the registry value to turn on
-                value= r"v=1;b=on"
+                value = r"v=1;b=on"
                 winreg.SetValueEx(registry_key, name, 0, winreg.REG_SZ, value)
                 winreg.CloseKey(registry_key)
                 logger.debug(f"Setting up Dr registry {name} to On is successful")
@@ -140,8 +135,8 @@ class Zoom_Team_Dr:
             logger.debug("Registry setting successful")
             return True
         except WindowsError as e:
-             logger.debug(f"Exception occured as {e}")
-             return False
+            logger.debug(f"Exception occured as {e}")
+            return False
 
     def zoom_call_start(self):
         """
@@ -155,36 +150,36 @@ class Zoom_Team_Dr:
         meeting_text_element = "name:zoom-test-dr1"
         try:
             logger.debug("opening zoom app")
-            windows.windows_search("Zoom",3)
-            zoom_window="name:\"Zoom Cloud Meetings\""
-            windows.control_window(zoom_window,3)
-            windows.click("name:\"Join a Meeting\"",2)
+            windows.windows_search("Zoom", 3)
+            zoom_window = "name:\"Zoom Cloud Meetings\""
+            windows.control_window(zoom_window, 3)
+            windows.click("name:\"Join a Meeting\"", 2)
             # it will go to new window
 
             windows.control_window("name:\"Join Meeting\"")
             logger.debug("Sending meeting ID ")
             time.sleep(2)
-            windows.send_keys("name:\"Meeting ID or Personal Link Name\"",meeting_id)
-            windows.send_keys("name:\"Enter your name\"","subham-dr-zooom-test")
+            windows.send_keys("name:\"Meeting ID or Personal Link Name\"", meeting_id)
+            windows.send_keys("name:\"Enter your name\"", "subham-dr-zooom-test")
             windows.click("name:Join")
             # changing the window
             windows.control_window("name:\"Enter meeting passcode\"")
-            #entering passcode
+            # entering passcode
             time.sleep(2)
             logger.debug(f"sending passcode to Zoom Meeting")
-            windows.send_keys("name:\"Meeting Passcode\"",passcode)
+            windows.send_keys("name:\"Meeting Passcode\"", passcode)
             # click join meeting button
             windows.click("name:\"Join Meeting\"")
             # switch to waiting for host window
 
             windows.control_window("name:\"Waiting for Host\"")
             # get elements from zoom window
-            meeting_text=windows.get_elements(meeting_text_element)
+            meeting_text = windows.get_elements(meeting_text_element)
             logger.debug(f"zoom call elements {meeting_text}")
             # printing the team text
             for ele in meeting_text:
                 logger.debug(f"printing zoom call elements{ele}")
-            if len(meeting_text)==1:
+            if len(meeting_text) == 1:
                 # meeting text found so return True
                 logger.debug(f"Zoom Test  text found returning {True}")
                 logger.debug("Zoom test passed taking screenshot")
@@ -199,7 +194,6 @@ class Zoom_Team_Dr:
                 zoom_screenshot.save(file_path)
                 return False
 
-
             time.sleep(5)
 
         except Exception as e:
@@ -207,7 +201,7 @@ class Zoom_Team_Dr:
             # Taking screenshot
             logger.debug("Zoom call failed taking screenshot")
             zoom_screenshot = pyautogui.screenshot()
-            file_path = os.path.join(current_directory,"Zoom_screenshots","zoom-fail.png")
+            file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
             logger.debug(f"file path of screen shot {file_path}")
             zoom_screenshot.save(file_path)
             return False
@@ -215,14 +209,24 @@ class Zoom_Team_Dr:
             # closing the apps
 
             windows.close_current_window()
-            subprocess.call(["taskkill","/F","/IM","Zoom.exe"])
+            subprocess.call(["taskkill", "/F", "/IM", "Zoom.exe"])
             subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
+
 
 if __name__ == "__main__":
     try:
+        # declaring objects
         obj = Zoom_Team_Dr()
+        zcc_obj = common_zcc.ZCC()
         # checking Zcc is Connected and not in DR state
         # set the registry off and
+        # set the registry off and update policy and then check zcc status
+        ret = obj.setter_dr_registry(state="off")
+        assert ret == True, "Registry setting failed"
+        # update zcc to get effect of dr registry
+        zcc_obj.perform_zcc_update_policy()
+        # checking zcc is connected service status on
+
 
         res = obj.zoom_call_start()
 
