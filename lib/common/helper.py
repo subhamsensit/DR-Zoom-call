@@ -1,10 +1,10 @@
 import os
-import logger
+import zscaler_logger
 
 
 class HELPER:
     log_path = "C:\\ProgramData\\Zscaler"
-    logger = logger.LogGen.loggen()
+    logger = zscaler_logger.LogGen.loggen()
 
     def read_logs_latency_based_zen(self):
         filenames = os.listdir(self.log_path)

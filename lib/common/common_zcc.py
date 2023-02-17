@@ -42,8 +42,8 @@ class ZCC:
     zcc_tunnel_status_ON = "id:ZSAMFWebSecurityTunnelStatusText name:\"ON\""
     zcc_tunnel_enforce_proxy = "id:ZSAMFWebSecurityTunnelStatusText name:\"Enforce Proxy\""
     zcc_tunnel_none = "id:ZSAMFWebSecurityTunnelStatusText name:\"Disabled\""
-
     zcc_server = "id:ZSAMFWebSecurityServerIPText"
+    zcc_dr_status = "id:ZSAMFWebSecurityTunnelStatusText name:\"Safe Mode\""
 
     def open_zsa_tray(self):
         self.logger.info("--- Opening Tray ---")
@@ -344,3 +344,34 @@ class ZCC:
         finally:
             self.windows.minimize_window(self.zcc_window)
             self.logger.info("******** Completed ********")
+    # Dr db code
+
+    def verify_zcc_dr_status(self):
+        """
+        This function will check zcc service type as safe mode to detect
+        DR
+        :return:
+        """
+
+        self.logger.info("******** Verifying ZCC is in DR state ********")
+        self.open_zsa_tray()
+        self.windows.click(self.zcc_ZIA_tab)
+        try:
+            self.logger.info("Verifying for Tunnel Status")
+            tunnel = self.windows.get_elements(self.zcc_dr_status)
+
+            self.logger.info("Elements Found: " + str(len(tunnel)))
+            if len(tunnel) == 1:
+                self.logger.info("DR State on ")
+                assert True
+                return True
+        except Exception as e:
+            self.logger.info("Safe mode is not found")
+            self.logger.error("DR status is not on")
+            assert False
+            return False
+        finally:
+            self.windows.minimize_window(self.zcc_window)
+            self.logger.info("******** DR Verification Completed ********")
+
+

@@ -215,31 +215,43 @@ class Zoom_Team_Dr:
 
 if __name__ == "__main__":
     try:
-        # declaring objects
+        # # declaring objects
         obj = Zoom_Team_Dr()
         zcc_obj = common_zcc.ZCC()
-        # checking Zcc is Connected and not in DR state
-        # set the registry off and
-        # set the registry off and update policy and then check zcc status
-        ret = obj.setter_dr_registry(state="off")
-        zoom_logger.debug(f"returning of registry {ret}")
-        assert ret == True, "Registry setting failed"
-        # update zcc to get effect of dr registry
-        zcc_obj.perform_zcc_update_policy()
-        # check tunnel status is on
-        tunnel_status= zcc_obj.verify_zcc_tunnel_on()
-        # checking zcc is connected service status on
-        if not tunnel_status:
-            # tunnel is not on before DR
-            zoom_logger.debug("Tunnel is not up before DR , script will abort")
-        assert tunnel_status == True, "Tunnel is not on ,exiting"
-        # tunnel is up initiate Zoom call
-        res_before_dr = obj.zoom_call_start()
-        obj.zoom_test_result["Zoom_call_before_Dr"] = res_before_dr
-        if not res_before_dr:
-            # zoom call was not successful
-            zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
-        # lets trigger Dr
+        # # checking Zcc is Connected and not in DR state
+        # # set the registry off and
+        # # set the registry off and update policy and then check zcc status
+        # ret = obj.setter_dr_registry(state="off")
+        # zoom_logger.debug(f"returning of registry {ret}")
+        # assert ret == True, "Registry setting failed"
+        # # update zcc to get effect of dr registry
+        # zcc_obj.perform_zcc_update_policy()
+        # # check tunnel status is on
+        # tunnel_status= zcc_obj.verify_zcc_tunnel_on()
+        # # checking zcc is connected service status on
+        # if not tunnel_status:
+        #     # tunnel is not on before DR
+        #     zoom_logger.debug("Tunnel is not up before DR , script will abort")
+        # assert tunnel_status == True, "Tunnel is not on ,exiting"
+        # # tunnel is up initiate Zoom call
+        # res_before_dr = obj.zoom_call_start()
+        # obj.zoom_test_result["Zoom_call_before_Dr"] = res_before_dr
+        # if not res_before_dr:
+        #     # zoom call was not successful
+        #     zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
+        # # lets trigger Dr by setting the dr register on
+        # zoom_logger.debug("Setting the registry off to trigger DR")
+        # registry_res=obj.setter_dr_registry(state="on")
+        # zoom_logger.debug(f"Return of DR registry on {registry_res}")
+        # assert registry_res, "Setting Dr registry failed"
+        # # update policy
+        # zcc_obj.zcc_update_policy
+        # time.sleep(7) # waiting 7 seconds
+        # # check in UI ZCC is in DR state
+        # # open zcc
+        dr_status=checking_dr_status=zcc_obj.verify_zcc_dr_status()
+        zoom_logger.debug(f"Dr status {dr_status} ")
+        # check dr status
 
 
 
