@@ -1,5 +1,5 @@
 import os
-import logger
+import zscaler_logger
 
 
 class HELPER:

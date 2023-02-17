@@ -2,7 +2,7 @@ import os
 import time
 from RPA.Windows import Windows
 import variables
-import logger
+import zscaler_logger
 
 
 # file scope local variables to serve all test methods
@@ -11,7 +11,8 @@ class ZCC:
     windows = Windows()
     dir_path = os.path.dirname(os.path.realpath(__file__))
     zsa_tray = "C:\\Program Files (x86)\\Zscaler\\ZSATray\\ZSATray.exe"
-    logger = logger.LogGen.loggen()
+    app_policy="zoom-team-disaster-recovery-test"
+    logger = zscaler_logger.LogGen.loggen()
 
     taskbar = "name:Taskbar"
     notification_chevron = "name:\"Notification Chevron\""
@@ -32,7 +33,7 @@ class ZCC:
     zcc_ZIA_tab = "id:ZSAMFWebSecurityTab"
     zcc_notification_tab = "id:ZSAMFNotificationsTab"
     zcc_settings_tab = "id:ZSAMFSettingsTab"
-    zcc_new_policy_name = "name:\"App Policy:  " + variables.app_policy_name + "\""
+    zcc_new_policy_name = "name:\"App Policy:  " + app_policy + "\""
     zcc_tunnel2_dtls = "id:ZSAMFWebSecurityTunnelVersionText name:\"v2.0 - DTLS\""
     zcc_tunnel2_tls = "id:ZSAMFWebSecurityTunnelVersionText name:\"v2.0 - TLS\""
     zcc_tunnel1 = "id:ZSAMFWebSecurityTunnelVersionText name:\"v1.0\""

@@ -4,7 +4,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 from time import sleep
 import variables
-import logger
+import zscaler_logger
 
 
 class SMUIFwdProfile:

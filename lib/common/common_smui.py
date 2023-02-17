@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 import variables
-import logger
+import zscaler_logger
 
 
 # self.chrome_driver = webdriver.Chrome(executable_path=variables.chrome_path)

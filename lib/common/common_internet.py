@@ -1,6 +1,6 @@
 from selenium import webdriver
 import variables
-import logger
+import zscaler_logger
 
 
 class InternetAccess:

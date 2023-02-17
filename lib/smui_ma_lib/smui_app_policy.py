@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from time import sleep
 import variables
-import logger
+import zscaler_logger
 
 
 class SMUIAppPolicy:

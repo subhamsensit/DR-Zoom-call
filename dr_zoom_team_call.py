@@ -56,14 +56,14 @@ TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
 current_directory = os.getcwd()
 
 log_path_certification = os.path.join(current_directory, "Logs", "Dr-zoom.log")
-logger = logging.getLogger("Dr")
-logger.setLevel(logging.DEBUG)
+zoom_logger = logging.getLogger("Dr")
+zoom_logger.setLevel(logging.DEBUG)
 format = logging.Formatter("'%(asctime)s %(message)s")
 
 fh = logging.FileHandler(log_path_certification, mode="w")
 fh.setFormatter(format)
-logger.addHandler(fh)
-logger.debug("======Zoom Dr log ========")
+zoom_logger.addHandler(fh)
+zoom_logger.debug("======Zoom Dr log ========")
 
 config = configparser.ConfigParser()
 configuration_file_path = os.path.join(current_directory, "configurations.ini")
@@ -71,7 +71,7 @@ config.read(configuration_file_path)
 
 reg_path = r"SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler"
 reg_name = "dr.zia.path-zoomtest.com"
-logger.debug(f"registry path {reg_path}")
+zoom_logger.debug(f"registry path {reg_path}")
 
 
 class Zoom_Team_Dr:
@@ -100,7 +100,7 @@ class Zoom_Team_Dr:
         except WindowsError:
             return None
 
-    def setter_dr_registry(self, name, state="on"):
+    def setter_dr_registry(self, name=reg_name, state="on"):
         """
         This will on or off the registry to trigger dr on or off
         registry path is Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
@@ -122,20 +122,20 @@ class Zoom_Team_Dr:
                 value = r"v=1;b=on"
                 winreg.SetValueEx(registry_key, name, 0, winreg.REG_SZ, value)
                 winreg.CloseKey(registry_key)
-                logger.debug(f"Setting up Dr registry {name} to On is successful")
+                zoom_logger.debug(f"Setting up Dr registry {name} to On is successful")
             elif state == "off":
                 # set the registry value to turn off
                 value = r"v=1;b=off"
                 winreg.SetValueEx(registry_key, name, 0, winreg.REG_SZ, value)
                 winreg.CloseKey(registry_key)
-                logger.debug(f"Setting up Dr registry {name} to Off is successful")
+                zoom_logger.debug(f"Setting up Dr registry {name} to Off is successful")
             else:
                 # wrong state return False
                 return False
-            logger.debug("Registry setting successful")
+            zoom_logger.debug("Registry setting successful")
             return True
         except WindowsError as e:
-            logger.debug(f"Exception occured as {e}")
+            zoom_logger.debug(f"Exception occured as {e}")
             return False
 
     def zoom_call_start(self):
@@ -147,9 +147,9 @@ class Zoom_Team_Dr:
         # Getting Zoom meeting details
         meeting_id = config["zoom-call-details"]["zoom-meeting-code"]
         passcode = config["zoom-call-details"]["password"]
-        meeting_text_element = "name:zoom-test-dr1"
+        meeting_text_element = "name:zoom-test-dr"
         try:
-            logger.debug("opening zoom app")
+            zoom_logger.debug("opening zoom app")
             windows.windows_search("Zoom", 3)
             zoom_window = "name:\"Zoom Cloud Meetings\""
             windows.control_window(zoom_window, 3)
@@ -157,7 +157,7 @@ class Zoom_Team_Dr:
             # it will go to new window
 
             windows.control_window("name:\"Join Meeting\"")
-            logger.debug("Sending meeting ID ")
+            zoom_logger.debug("Sending meeting ID ")
             time.sleep(2)
             windows.send_keys("name:\"Meeting ID or Personal Link Name\"", meeting_id)
             windows.send_keys("name:\"Enter your name\"", "subham-dr-zooom-test")
@@ -166,7 +166,7 @@ class Zoom_Team_Dr:
             windows.control_window("name:\"Enter meeting passcode\"")
             # entering passcode
             time.sleep(2)
-            logger.debug(f"sending passcode to Zoom Meeting")
+            zoom_logger.debug(f"sending passcode to Zoom Meeting")
             windows.send_keys("name:\"Meeting Passcode\"", passcode)
             # click join meeting button
             windows.click("name:\"Join Meeting\"")
@@ -175,34 +175,34 @@ class Zoom_Team_Dr:
             windows.control_window("name:\"Waiting for Host\"")
             # get elements from zoom window
             meeting_text = windows.get_elements(meeting_text_element)
-            logger.debug(f"zoom call elements {meeting_text}")
+            zoom_logger.debug(f"zoom call elements {meeting_text}")
             # printing the team text
             for ele in meeting_text:
-                logger.debug(f"printing zoom call elements{ele}")
+                zoom_logger.debug(f"printing zoom call elements{ele}")
             if len(meeting_text) == 1:
                 # meeting text found so return True
-                logger.debug(f"Zoom Test  text found returning {True}")
-                logger.debug("Zoom test passed taking screenshot")
+                zoom_logger.debug(f"Zoom Test  text found returning {True}")
+                zoom_logger.debug("Zoom test passed taking screenshot")
                 return True
             else:
-                logger.debug(f"Error occured as {e}")
+                zoom_logger.debug(f"Error occured as {e}")
                 # Taking screenshot
-                logger.debug("Zoom call failed taking screenshot")
+                zoom_logger.debug("Zoom call failed taking screenshot")
                 zoom_screenshot = pyautogui.screenshot()
                 file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
-                logger.debug(f"file path of screen shot {file_path}")
+                zoom_logger.debug(f"file path of screen shot {file_path}")
                 zoom_screenshot.save(file_path)
                 return False
 
             time.sleep(5)
 
         except Exception as e:
-            logger.debug(f"Error occured as {e}")
+            zoom_logger.debug(f"Error occured as {e}")
             # Taking screenshot
-            logger.debug("Zoom call failed taking screenshot")
+            zoom_logger.debug("Zoom call failed taking screenshot")
             zoom_screenshot = pyautogui.screenshot()
             file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
-            logger.debug(f"file path of screen shot {file_path}")
+            zoom_logger.debug(f"file path of screen shot {file_path}")
             zoom_screenshot.save(file_path)
             return False
         finally:
@@ -222,6 +222,7 @@ if __name__ == "__main__":
         # set the registry off and
         # set the registry off and update policy and then check zcc status
         ret = obj.setter_dr_registry(state="off")
+        zoom_logger.debug(f"returning of registry {ret}")
         assert ret == True, "Registry setting failed"
         # update zcc to get effect of dr registry
         zcc_obj.perform_zcc_update_policy()
@@ -231,4 +232,4 @@ if __name__ == "__main__":
         res = obj.zoom_call_start()
 
     except Exception as e:
-        logger.debug(f"Exception {e} occured")
+        zoom_logger.debug(f"Exception {e} occured")

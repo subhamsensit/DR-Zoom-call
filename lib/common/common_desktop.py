@@ -3,7 +3,7 @@ import time
 from RPA.Windows import Windows
 
 import variables
-import logger
+import zscaler_logger
 
 
 # file scope local variables to serve all test methods
