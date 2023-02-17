@@ -307,6 +307,7 @@ class ZCC:
             self.logger.info("******** Verification Completed ********")
 
     def verify_zcc_tunnel_on(self):
+
         self.logger.info("******** Verifying Tunnel is connected ********")
         self.open_zsa_tray()
         self.windows.click(self.zcc_ZIA_tab)
@@ -318,9 +319,11 @@ class ZCC:
             if len(tunnel) == 1:
                 self.logger.info("Tunnel status is ON")
                 assert True
+                return True
         except:
             self.logger.error("Tunnel status is not ON")
             assert False
+            return False
         finally:
             self.windows.minimize_window(self.zcc_window)
             self.logger.info("******** Verification Completed ********")

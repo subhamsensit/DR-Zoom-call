@@ -1,5 +1,5 @@
 import os
-import zscaler_logger
+import logger
 
 
 class HELPER:
@@ -49,10 +49,38 @@ class HELPER:
         else:
             assert False
 
+    def read_logs_for_secondary_sme(self):
+        filenames = os.listdir(self.log_path)
+        tray_logs = list(filter(lambda x: "ZSATunnel_" in x, filenames))
+        tray_logs.sort(reverse=True)
+        last_logs = self.log_path + "\\" + tray_logs[0]
 
+        self.logger.info("******** Checking logs ********")
+        check = False
+        for line in reversed(open(last_logs).readlines()):
+            if "return \"PROXY" in line and "; DIRECT\";" in line:
+                req_line = line.split(' ')
+                ip = [req_line[-2].split(':')[0], req_line[-4].split(':')[0]]
+                self.logger.info("SM IPs from logs: " + str(ip))
+                return ip
 
+    def check_last_tunnel_logs_for_string(self, to_check):
+        """
+        :param to_check: string which we have to find in logs
+        :return: T/F
+        """
 
+        filenames = os.listdir(self.log_path)
+        tray_logs = list(filter(lambda x: "ZSATunnel_" in x, filenames))
+        tray_logs.sort(reverse=True)
+        last_logs = self.log_path + "\\" + tray_logs[0]
 
+        self.logger.info("******** Checking logs ********")
+        check = False
+        for line in reversed(open(last_logs).readlines()):
+            if to_check in line:
+                self.logger.info("Found given string in tunnel logs")
+                check = True
+                break
 
-
-
+        return check

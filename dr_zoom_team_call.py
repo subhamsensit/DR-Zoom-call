@@ -33,7 +33,7 @@ Have monitor if fails, send an email - Separate script with Prod DR DB
 """
 from lib.common import common_zcc
 # from lib.common import common_desktop
-# from lib.common import helper
+from lib.common import helper
 import winreg
 import configparser
 import logging
@@ -79,11 +79,11 @@ class Zoom_Team_Dr:
     This class will initiate a Zoom call and Team call in dr state and validate the behaviour
     """
 
-    # def __init__(self):
-    #     """
-    #     This constructor will initialize values required for zoom call
-    #     """
-    #     pass
+    def __init__(self):
+         """
+         This constructor will initialize values required for zoom call
+         """
+         self.zoom_test_result={}
     def getter_dr_registry(self, name):
         """
         This will return the state of dr registry
@@ -182,7 +182,7 @@ class Zoom_Team_Dr:
             if len(meeting_text) == 1:
                 # meeting text found so return True
                 zoom_logger.debug(f"Zoom Test  text found returning {True}")
-                zoom_logger.debug("Zoom test passed taking screenshot")
+                zoom_logger.debug("Zoom test passed ")
                 return True
             else:
                 zoom_logger.debug(f"Error occured as {e}")
@@ -226,10 +226,25 @@ if __name__ == "__main__":
         assert ret == True, "Registry setting failed"
         # update zcc to get effect of dr registry
         zcc_obj.perform_zcc_update_policy()
+        # check tunnel status is on
+        tunnel_status= zcc_obj.verify_zcc_tunnel_on()
         # checking zcc is connected service status on
+        if not tunnel_status:
+            # tunnel is not on before DR
+            zoom_logger.debug("Tunnel is not up before DR , script will abort")
+        assert tunnel_status == True, "Tunnel is not on ,exiting"
+        # tunnel is up initiate Zoom call
+        res_before_dr = obj.zoom_call_start()
+        obj.zoom_test_result["Zoom_call_before_Dr"] = res_before_dr
+        if not res_before_dr:
+            # zoom call was not successful
+            zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
+        # lets trigger Dr
 
 
-        res = obj.zoom_call_start()
+
+
+        # if res True Zoom call succeded
 
     except Exception as e:
         zoom_logger.debug(f"Exception {e} occured")
