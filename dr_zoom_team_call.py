@@ -73,6 +73,8 @@ reg_path = r"SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler"
 reg_name = "dr.zia.path-zoomtest.com"
 zoom_logger.debug(f"registry path {reg_path}")
 
+# setting zoom_flag to get the result of zoom
+zoom_flag = False
 
 class Zoom_Team_Dr:
     """
@@ -218,45 +220,71 @@ if __name__ == "__main__":
         # # declaring objects
         obj = Zoom_Team_Dr()
         zcc_obj = common_zcc.ZCC()
-        # # checking Zcc is Connected and not in DR state
-        # # set the registry off and
-        # # set the registry off and update policy and then check zcc status
-        # ret = obj.setter_dr_registry(state="off")
-        # zoom_logger.debug(f"returning of registry {ret}")
-        # assert ret == True, "Registry setting failed"
-        # # update zcc to get effect of dr registry
-        # zcc_obj.perform_zcc_update_policy()
-        # # check tunnel status is on
-        # tunnel_status= zcc_obj.verify_zcc_tunnel_on()
-        # # checking zcc is connected service status on
-        # if not tunnel_status:
-        #     # tunnel is not on before DR
-        #     zoom_logger.debug("Tunnel is not up before DR , script will abort")
-        # assert tunnel_status == True, "Tunnel is not on ,exiting"
-        # # tunnel is up initiate Zoom call
-        # res_before_dr = obj.zoom_call_start()
-        # obj.zoom_test_result["Zoom_call_before_Dr"] = res_before_dr
-        # if not res_before_dr:
-        #     # zoom call was not successful
-        #     zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
-        # # lets trigger Dr by setting the dr register on
-        # zoom_logger.debug("Setting the registry off to trigger DR")
-        # registry_res=obj.setter_dr_registry(state="on")
-        # zoom_logger.debug(f"Return of DR registry on {registry_res}")
-        # assert registry_res, "Setting Dr registry failed"
-        # # update policy
-        # zcc_obj.zcc_update_policy
-        # time.sleep(7) # waiting 7 seconds
-        # # check in UI ZCC is in DR state
-        # # open zcc
-        dr_status=checking_dr_status=zcc_obj.verify_zcc_dr_status()
+       # checking Zcc is Connected and not in DR state
+        # set the registry off and
+        # set the registry off and update policy and then check zcc status
+        ret = obj.setter_dr_registry(state="off")
+        zoom_logger.debug(f"returning of registry {ret}")
+        assert ret == True, "Registry setting failed"
+        # update zcc to get effect of dr registry
+        zcc_obj.perform_zcc_update_policy()
+        # check tunnel status is on
+        tunnel_status= zcc_obj.verify_zcc_tunnel_on()
+        # checking zcc is connected service status on
+        if not tunnel_status:
+            # tunnel is not on before DR
+            zoom_logger.debug("Tunnel is not up before DR , script will abort")
+        assert tunnel_status == True, "Tunnel is not on ,exiting"
+        # tunnel is up initiate Zoom call
+        res_before_dr = obj.zoom_call_start()
+        # setting value to zoom call before DR
+        obj.zoom_test_result["Zoom_call_before_Dr"] = res_before_dr
+        if not res_before_dr:
+            # zoom call was not successful
+            zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
+        # lets trigger Dr by setting the dr register on
+        zoom_logger.debug("Setting the registry off to trigger DR")
+        registry_res=obj.setter_dr_registry(state="on")
+        zoom_logger.debug(f"Return of DR registry on {registry_res}")
+        assert registry_res, "Setting Dr registry failed"
+        # update policy
+        zoom_logger.debug("Updating Zcc after registry to off to set Safe Mode")
+        zcc_obj.perform_zcc_update_policy()
+        time.sleep(7) # waiting 7 seconds
+        # check in UI ZCC is in DR state
+        # open zcc
+        dr_status=zcc_obj.verify_zcc_dr_status()
         zoom_logger.debug(f"Dr status {dr_status} ")
         # check dr status
-
-
-
-
         # if res True Zoom call succeded
+        # if Dr_status is True
+        # Check Tunnel log "Disaster recovery DB download Response code:200" is found
+        # define helper object
+        helper_obj= helper.HELPER()
+        ret = helper_obj.check_last_tunnel_logs_for_string("Disaster recovery DB download Response code:200")
+        if not ret:
+            zoom_logger.debug("Dr db download was not successful test will abort")
+        assert ret == True ,"drdb downlod 'Disaster recovery DB download Response code:200' not found"
+        zoom_logger.debug(f"drdb downloaded successfully")
+        if dr_status:
+            # initiate a zoom call in dr state
+            ret = obj.zoom_call_start()
+            if ret :
+                zoom_flag = True # if zoom is successful in dr state , test passed
+                zoom_logger.debug("Zoom call is passed with DR setting zoom_flag to True, Test passed")
+                zoom_logger.debug(f"Zoom flag value {zoom_flag} ")
+            else:
+                zoom_flag = False
+                zoom_logger.debug("Zoom call failed with DR , setting zoom_flag to False, Test failed")
+                zoom_logger.debug(f"Zoom flag value {zoom_flag} ")
+        else:
+            zoom_logger.debug("Dr state failed aborting")
 
     except Exception as e:
-        zoom_logger.debug(f"Exception {e} occured")
+        zoom_logger.debug(f"Error occured as {e}")
+        # Taking screenshot
+        zoom_logger.debug("Zoom call failed taking screenshot")
+        zoom_screenshot = pyautogui.screenshot()
+        file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
+        zoom_logger.debug(f"file path of screen shot {file_path}")
+        zoom_screenshot.save(file_path)

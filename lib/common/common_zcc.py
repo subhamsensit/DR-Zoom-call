@@ -1,7 +1,7 @@
 import os
 import time
 from RPA.Windows import Windows
-import variables
+#import variables
 import zscaler_logger
 
 

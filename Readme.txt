@@ -1,4 +1,6 @@
+first check windows can make sucessful connection 
 Initiate a call before dr
+
 and initiate call after dr
 before DR if zoom fails return False and exit the script trigger mail
 after dr initiate a zoom call if pass return True

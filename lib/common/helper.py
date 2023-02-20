@@ -79,7 +79,7 @@ class HELPER:
         check = False
         for line in reversed(open(last_logs).readlines()):
             if to_check in line:
-                self.logger.info("Found given string in tunnel logs")
+                self.logger.info(f"Found given string {to_check} in tunnel logs")
                 check = True
                 break
 
