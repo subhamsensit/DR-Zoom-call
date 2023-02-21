@@ -31,18 +31,32 @@ Have monitor if fails, send an email - Separate script with Prod DR DB
 
 
 """
+
+
+import sys,os
+from os import path
+
+#current_directory = os.getcwd()
+# adding library folder
+# current library directory
+#sys.path.append(os.path.join(current_directory,"lib","common"))
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 from lib.common import common_zcc
 # from lib.common import common_desktop
 from lib.common import helper
 import winreg
 import configparser
 import logging
-import time, os
+import time
 import subprocess
 from RPA.Windows import Windows
 import pyautogui
 from datetime import datetime
 import json
+
+
+
 
 # declaring object of Windows RPA apackage
 windows = Windows()
@@ -54,8 +68,8 @@ TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
 
 # below logger will create log file db_certification.log under current directory
 # file path for logging
-current_directory = os.getcwd()
-
+# hardcoded file path need to edit in case of change
+current_directory=r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call"
 log_path_certification = os.path.join(current_directory, "Logs", "Dr-zoom.log")
 zoom_logger = logging.getLogger("Dr")
 zoom_logger.setLevel(logging.DEBUG)
@@ -288,6 +302,7 @@ if __name__ == "__main__":
         # writing the result of zoom_flag to dictionary and then to a file
         result["zoom_call_status"] = zoom_flag
         result["Timestamp"] = TIME
+        zoom_logger.debug(f"Dictionary value to be written {result}")
         with open('result.txt', 'w') as result_file:
             result_file.write(json.dumps(result))
 

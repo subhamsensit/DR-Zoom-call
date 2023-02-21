@@ -1,12 +1,18 @@
-import os
+import os,sys
 import time
 from RPA.Windows import Windows
 #import variables
-import zscaler_logger
 
+import sys,os
+from os import path
 
+current_directory = os.getcwd()
+# adding library folder
+# current library directory
+sys.path.append(os.path.join(current_directory,"lib","common"))
+from lib.common import zscaler_logger
 # file scope local variables to serve all test methods
-
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 class ZCC:
     windows = Windows()
     dir_path = os.path.dirname(os.path.realpath(__file__))

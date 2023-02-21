@@ -1,5 +1,12 @@
-import os
-import zscaler_logger
+import os,sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+current_directory = os.getcwd()
+# adding library folder
+# current library directory
+sys.path.append(os.path.join(current_directory,"lib","common"))
+from lib.common import zscaler_logger
+
 
 
 class HELPER:

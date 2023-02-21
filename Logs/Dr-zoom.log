@@ -1,30 +1,17 @@
-'2023-02-20 06:01:06,046 ======Zoom Dr log ========
-'2023-02-20 06:01:06,046 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
-'2023-02-20 06:01:06,047 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-20 06:01:06,047 Registry setting successful
-'2023-02-20 06:01:06,047 returning of registry True
-'2023-02-20 06:01:50,295 opening zoom app
-'2023-02-20 06:01:59,614 Sending meeting ID 
-'2023-02-20 06:02:06,409 sending passcode to Zoom Meeting
-'2023-02-20 06:02:09,785 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001694E9C4890>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=693, right=1085, top=528, bottom=566, width=392, height=38, xcenter=889, ycenter=547)]
-'2023-02-20 06:02:09,785 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001694E9C4890>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=693, right=1085, top=528, bottom=566, width=392, height=38, xcenter=889, ycenter=547)
-'2023-02-20 06:02:09,785 Zoom Test  text found returning True
-'2023-02-20 06:02:09,785 Zoom test passed 
-'2023-02-20 06:02:09,911 Setting the registry off to trigger DR
-'2023-02-20 06:02:09,912 Setting up Dr registry dr.zia.path-zoomtest.com to On is successful
-'2023-02-20 06:02:09,912 Registry setting successful
-'2023-02-20 06:02:09,912 Return of DR registry on True
-'2023-02-20 06:02:09,912 Updating Zcc after registry to off to set Safe Mode
-'2023-02-20 06:03:01,014 Dr status True 
-'2023-02-20 06:03:01,057 drdb downloaded successfully
-'2023-02-20 06:03:01,057 opening zoom app
-'2023-02-20 06:03:10,306 Sending meeting ID 
-'2023-02-20 06:03:18,542 sending passcode to Zoom Meeting
-'2023-02-20 06:03:21,879 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001694E9A36D0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=693, right=1085, top=528, bottom=566, width=392, height=38, xcenter=889, ycenter=547)]
-'2023-02-20 06:03:21,879 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001694E9A36D0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=693, right=1085, top=528, bottom=566, width=392, height=38, xcenter=889, ycenter=547)
-'2023-02-20 06:03:21,879 Zoom Test  text found returning True
-'2023-02-20 06:03:21,879 Zoom test passed 
-'2023-02-20 06:03:21,996 Zoom call is passed with DR setting zoom_flag to True, Test passed
-'2023-02-20 06:03:21,996 Error occured as 'bool' object has no attribute 'debug'
-'2023-02-20 06:03:21,996 Zoom call failed taking screenshot
-'2023-02-20 06:03:22,056 file path of screen shot C:\Users\Zscaler\Documents\MR-1993-DR-Zoom-call\Zoom_screenshots\zoom-fail.png
+'2023-02-21 03:29:43,318 ======Zoom Dr log ========
+'2023-02-21 03:29:43,319 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
+'2023-02-21 03:29:43,319 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-21 03:29:43,319 Registry setting successful
+'2023-02-21 03:29:43,319 returning of registry True
+'2023-02-21 03:30:27,554 opening zoom app
+'2023-02-21 03:30:37,218 Sending meeting ID 
+'2023-02-21 03:30:43,448 Error occured as (-2147220991, 'An event was unable to invoke any of the subscribers', (None, None, None, 0, None))
+'2023-02-21 03:30:43,448 Zoom call failed taking screenshot
+'2023-02-21 03:30:43,511 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots\zoom-fail.png
+'2023-02-21 03:30:43,636 Error occured as [WinError 87] The parameter is incorrect
+'2023-02-21 03:30:43,636 Zoom call failed taking screenshot
+'2023-02-21 03:30:43,683 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots\zoom-fail.png
+'2023-02-21 03:30:43,792 writing result into result.txt file
+'2023-02-21 03:30:43,792 Test completed Disabling DR through registry 
+'2023-02-21 03:30:43,792 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-21 03:30:43,792 Registry setting successful
