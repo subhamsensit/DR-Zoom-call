@@ -42,6 +42,7 @@ import subprocess
 from RPA.Windows import Windows
 import pyautogui
 from datetime import datetime
+import json
 
 # declaring object of Windows RPA apackage
 windows = Windows()
@@ -75,6 +76,8 @@ zoom_logger.debug(f"registry path {reg_path}")
 
 # setting zoom_flag to get the result of zoom
 zoom_flag = False
+# this dictionary will save result file which will be read by Centos machine for reading
+result={}
 
 class Zoom_Team_Dr:
     """
@@ -149,7 +152,8 @@ class Zoom_Team_Dr:
         # Getting Zoom meeting details
         meeting_id = config["zoom-call-details"]["zoom-meeting-code"]
         passcode = config["zoom-call-details"]["password"]
-        meeting_text_element = "name:zoom-test-dr"
+        meeting_text = config["zoom-call-details"]["meeting_details"]
+        meeting_text_element = f"name:{meeting_text}"
         try:
             zoom_logger.debug("opening zoom app")
             windows.windows_search("Zoom", 3)
@@ -176,6 +180,7 @@ class Zoom_Team_Dr:
 
             windows.control_window("name:\"Waiting for Host\"")
             # get elements from zoom window
+            zoom_logger.debug(f"Looking for{meeting_text_element} in the meeting")
             meeting_text = windows.get_elements(meeting_text_element)
             zoom_logger.debug(f"zoom call elements {meeting_text}")
             # printing the team text
@@ -196,7 +201,7 @@ class Zoom_Team_Dr:
                 zoom_screenshot.save(file_path)
                 return False
 
-            time.sleep(5)
+
 
         except Exception as e:
             zoom_logger.debug(f"Error occured as {e}")
@@ -280,6 +285,12 @@ if __name__ == "__main__":
         else:
             zoom_logger.debug("Dr state failed aborting")
 
+        # writing the result of zoom_flag to dictionary and then to a file
+        result["zoom_call_status"] = zoom_flag
+        result["Timestamp"] = TIME
+        with open('result.txt', 'w') as result_file:
+            result_file.write(json.dumps(result))
+
     except Exception as e:
         zoom_logger.debug(f"Error occured as {e}")
         # Taking screenshot
@@ -288,3 +299,6 @@ if __name__ == "__main__":
         file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
         zoom_logger.debug(f"file path of screen shot {file_path}")
         zoom_screenshot.save(file_path)
+        zoom_logger.debug("writing result into result.txt file")
+        with open('result.txt', 'w') as result_file:
+            result_file.write(json.dumps(result))
