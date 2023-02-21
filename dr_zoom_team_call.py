@@ -302,3 +302,6 @@ if __name__ == "__main__":
         zoom_logger.debug("writing result into result.txt file")
         with open('result.txt', 'w') as result_file:
             result_file.write(json.dumps(result))
+    finally:
+        zoom_logger.debug("Test completed Disabling DR through registry ")
+        obj.setter_dr_registry(state="off")
