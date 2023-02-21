@@ -1,17 +1,34 @@
-'2023-02-21 03:29:43,318 ======Zoom Dr log ========
-'2023-02-21 03:29:43,319 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
-'2023-02-21 03:29:43,319 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-21 03:29:43,319 Registry setting successful
-'2023-02-21 03:29:43,319 returning of registry True
-'2023-02-21 03:30:27,554 opening zoom app
-'2023-02-21 03:30:37,218 Sending meeting ID 
-'2023-02-21 03:30:43,448 Error occured as (-2147220991, 'An event was unable to invoke any of the subscribers', (None, None, None, 0, None))
-'2023-02-21 03:30:43,448 Zoom call failed taking screenshot
-'2023-02-21 03:30:43,511 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots\zoom-fail.png
-'2023-02-21 03:30:43,636 Error occured as [WinError 87] The parameter is incorrect
-'2023-02-21 03:30:43,636 Zoom call failed taking screenshot
-'2023-02-21 03:30:43,683 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots\zoom-fail.png
-'2023-02-21 03:30:43,792 writing result into result.txt file
-'2023-02-21 03:30:43,792 Test completed Disabling DR through registry 
-'2023-02-21 03:30:43,792 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-21 03:30:43,792 Registry setting successful
+'2023-02-21 04:39:11,342 ======Zoom Dr log ========
+'2023-02-21 04:39:11,342 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
+'2023-02-21 04:39:11,342 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-21 04:39:11,342 Registry setting successful
+'2023-02-21 04:39:11,342 returning of registry True
+'2023-02-21 04:39:55,505 opening zoom app
+'2023-02-21 04:40:05,190 Sending meeting ID 
+'2023-02-21 04:40:13,869 sending passcode to Zoom Meeting
+'2023-02-21 04:40:18,105 Looking forname:zoom-test-dr in the meeting
+'2023-02-21 04:40:18,137 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001E67172C710>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)]
+'2023-02-21 04:40:18,137 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001E67172C710>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)
+'2023-02-21 04:40:18,137 Zoom Test  text found returning True
+'2023-02-21 04:40:18,137 Zoom test passed 
+'2023-02-21 04:40:18,263 Setting the registry off to trigger DR
+'2023-02-21 04:40:18,263 Setting up Dr registry dr.zia.path-zoomtest.com to On is successful
+'2023-02-21 04:40:18,263 Registry setting successful
+'2023-02-21 04:40:18,263 Return of DR registry on True
+'2023-02-21 04:40:18,263 Updating Zcc after registry to off to set Safe Mode
+'2023-02-21 04:41:09,279 Dr status True 
+'2023-02-21 04:41:09,310 drdb downloaded successfully
+'2023-02-21 04:41:09,310 opening zoom app
+'2023-02-21 04:41:18,963 Sending meeting ID 
+'2023-02-21 04:41:27,492 sending passcode to Zoom Meeting
+'2023-02-21 04:41:31,222 Looking forname:zoom-test-dr in the meeting
+'2023-02-21 04:41:31,254 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001E6716E7510>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)]
+'2023-02-21 04:41:31,254 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x000001E6716E7510>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)
+'2023-02-21 04:41:31,254 Zoom Test  text found returning True
+'2023-02-21 04:41:31,254 Zoom test passed 
+'2023-02-21 04:41:31,363 Zoom call is passed with DR setting zoom_flag to True, Test passed
+'2023-02-21 04:41:31,363 Zoom flag value True 
+'2023-02-21 04:41:31,363 Dictionary value to be written {'zoom_call_status': True, 'Timestamp': '2023-02-21 04-39-11'}
+'2023-02-21 04:41:31,363 Test completed Disabling DR through registry 
+'2023-02-21 04:41:31,363 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-21 04:41:31,363 Registry setting successful

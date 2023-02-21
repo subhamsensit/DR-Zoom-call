@@ -315,8 +315,12 @@ if __name__ == "__main__":
         zoom_logger.debug(f"file path of screen shot {file_path}")
         zoom_screenshot.save(file_path)
         zoom_logger.debug("writing result into result.txt file")
+        result["zoom_call_status"] = zoom_flag
+        result["Timestamp"] = TIME
         with open('result.txt', 'w') as result_file:
             result_file.write(json.dumps(result))
     finally:
         zoom_logger.debug("Test completed Disabling DR through registry ")
         obj.setter_dr_registry(state="off")
+        subprocess.call(["taskkill", "/F", "/IM", "Zoom.exe"])
+        subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
