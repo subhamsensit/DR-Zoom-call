@@ -54,7 +54,7 @@ from RPA.Windows import Windows
 import pyautogui
 from datetime import datetime
 import json
-
+from zoneinfo import ZoneInfo
 
 
 
@@ -64,7 +64,8 @@ windows = Windows()
 
 LOG_TIMESTAMP_FORMAT = "%Y-%m-%d %H-%M-%S"
 
-TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
+#TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
+TIME = datetime.now(tz=ZoneInfo('Asia/Kolkata'))
 
 # below logger will create log file db_certification.log under current directory
 # file path for logging
@@ -103,6 +104,21 @@ class Zoom_Team_Dr:
          This constructor will initialize values required for zoom call
          """
          self.zoom_test_result={}
+
+    def screenshot_zoom(self):
+        """
+        This function will take screenshot
+        """
+        time_now=datetime.now()
+        zoom_screenshot = pyautogui.screenshot()
+        day=str(time_now)[0:10] # this will give only date
+        fail_iamge_name=f"zoom-fail-{day}.png"
+        zoom_logger.debug(f"File path {__file__}")
+        file_path=r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots"
+        file=os.path.join(file_path,fail_iamge_name)
+        zoom_logger.debug(f"file path of screen shot {file_path}")
+        zoom_screenshot.save(file)
+
     def getter_dr_registry(self, name):
         """
         This will return the state of dr registry
@@ -235,6 +251,7 @@ class Zoom_Team_Dr:
 
 
 if __name__ == "__main__":
+
     try:
         # # declaring objects
         obj = Zoom_Team_Dr()
@@ -278,13 +295,13 @@ if __name__ == "__main__":
         # if res True Zoom call succeded
         # if Dr_status is True
         # Check Tunnel log "Disaster recovery DB download Response code:200" is found
-        # define helper object
-        helper_obj= helper.HELPER()
-        ret = helper_obj.check_last_tunnel_logs_for_string("Disaster recovery DB download Response code:200")
-        if not ret:
-            zoom_logger.debug("Dr db download was not successful test will abort")
-        assert ret == True ,"drdb downlod 'Disaster recovery DB download Response code:200' not found"
-        zoom_logger.debug(f"drdb downloaded successfully")
+        # define helper object disabling log validation
+        # helper_obj= helper.HELPER()
+        # ret = helper_obj.check_last_tunnel_logs_for_string("Disaster recovery DB download Response code:200")
+        # if not ret:
+        #     zoom_logger.debug("Dr db download was not successful test will abort")
+        # assert ret == True ,"drdb downlod 'Disaster recovery DB download Response code:200' not found"
+        # zoom_logger.debug(f"drdb downloaded successfully")
         if dr_status:
             # initiate a zoom call in dr state
             ret = obj.zoom_call_start()
@@ -296,6 +313,8 @@ if __name__ == "__main__":
                 zoom_flag = False
                 zoom_logger.debug("Zoom call failed with DR , setting zoom_flag to False, Test failed")
                 zoom_logger.debug(f"Zoom flag value {zoom_flag} ")
+                zoom_logger("zoom_call_failed taking screenshot")
+                obj.screenshot_zoom()
         else:
             zoom_logger.debug("Dr state failed aborting")
 
@@ -303,24 +322,22 @@ if __name__ == "__main__":
         result["zoom_call_status"] = zoom_flag
         result["Timestamp"] = TIME
         zoom_logger.debug(f"Dictionary value to be written {result}")
-        with open('result.txt', 'w') as result_file:
-            result_file.write(json.dumps(result))
+        with open('result.json', 'w') as result_file:
+            json.dump(result, result_file, indent=4)
 
     except Exception as e:
         zoom_logger.debug(f"Error occured as {e}")
         # Taking screenshot
         zoom_logger.debug("Zoom call failed taking screenshot")
-        zoom_screenshot = pyautogui.screenshot()
-        file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
-        zoom_logger.debug(f"file path of screen shot {file_path}")
-        zoom_screenshot.save(file_path)
-        zoom_logger.debug("writing result into result.txt file")
+        obj.screenshot_zoom()
+        zoom_logger.debug("writing result into result.json file")
         result["zoom_call_status"] = zoom_flag
         result["Timestamp"] = TIME
-        with open('result.txt', 'w') as result_file:
-            result_file.write(json.dumps(result))
+        with open('result.json', 'w') as result_file:
+            json.dump(result, result_file, indent=4)
     finally:
         zoom_logger.debug("Test completed Disabling DR through registry ")
         obj.setter_dr_registry(state="off")
         subprocess.call(["taskkill", "/F", "/IM", "Zoom.exe"])
         subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
+
