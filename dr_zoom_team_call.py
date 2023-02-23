@@ -235,12 +235,7 @@ class Zoom_Team_Dr:
 
         except Exception as e:
             zoom_logger.debug(f"Error occured as {e}")
-            # Taking screenshot
-            zoom_logger.debug("Zoom call failed taking screenshot")
-            zoom_screenshot = pyautogui.screenshot()
-            file_path = os.path.join(current_directory, "Zoom_screenshots", "zoom-fail.png")
-            zoom_logger.debug(f"file path of screen shot {file_path}")
-            zoom_screenshot.save(file_path)
+
             return False
         finally:
             # closing the apps
@@ -313,7 +308,7 @@ if __name__ == "__main__":
                 zoom_flag = False
                 zoom_logger.debug("Zoom call failed with DR , setting zoom_flag to False, Test failed")
                 zoom_logger.debug(f"Zoom flag value {zoom_flag} ")
-                zoom_logger("zoom_call_failed taking screenshot")
+                zoom_logger.debug("zoom_call_failed taking screenshot")
                 obj.screenshot_zoom()
         else:
             zoom_logger.debug("Dr state failed aborting")
@@ -331,7 +326,7 @@ if __name__ == "__main__":
         zoom_logger.debug("Zoom call failed taking screenshot")
         obj.screenshot_zoom()
         zoom_logger.debug("writing result into result.json file")
-        result["zoom_call_status"] = zoom_flag
+        result["zoom_call_status"] = False
         result["Timestamp"] = TIME
         with open('result.json', 'w') as result_file:
             json.dump(result, result_file, indent=4)

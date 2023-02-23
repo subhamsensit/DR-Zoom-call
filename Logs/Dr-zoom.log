@@ -1,4 +1,16 @@
-'2023-02-22 06:16:13,180 ======Zoom Dr log ========
-'2023-02-22 06:16:13,180 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
-'2023-02-22 06:16:13,235 File path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
-'2023-02-22 06:16:13,235 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots
+'2023-02-23 00:52:15,166 ======Zoom Dr log ========
+'2023-02-23 00:52:15,178 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
+'2023-02-23 00:52:15,178 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-23 00:52:15,179 Registry setting successful
+'2023-02-23 00:52:15,179 returning of registry True
+'2023-02-23 00:52:59,545 opening zoom app
+'2023-02-23 00:53:09,531 Sending meeting ID 
+'2023-02-23 00:53:13,915 Error occured as (-2147467259, 'Unspecified error', (None, None, None, 0, None))
+'2023-02-23 00:53:13,944 Error occured as [WinError 87] The parameter is incorrect
+'2023-02-23 00:53:13,944 Zoom call failed taking screenshot
+'2023-02-23 00:53:14,018 File path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
+'2023-02-23 00:53:14,018 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots
+'2023-02-23 00:53:14,149 writing result into result.json file
+'2023-02-23 00:53:14,150 Test completed Disabling DR through registry 
+'2023-02-23 00:53:14,150 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-23 00:53:14,150 Registry setting successful
