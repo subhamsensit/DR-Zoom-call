@@ -317,8 +317,9 @@ if __name__ == "__main__":
         result["zoom_call_status"] = zoom_flag
         result["Timestamp"] = TIME
         zoom_logger.debug(f"Dictionary value to be written {result}")
+        zoom_logger.debug("Writing result to a json file")
         with open('result.json', 'w') as result_file:
-            json.dump(result, result_file, indent=4)
+            json.dump(result, result_file, indent=4,default=str)
 
     except Exception as e:
         zoom_logger.debug(f"Error occured as {e}")
@@ -328,8 +329,9 @@ if __name__ == "__main__":
         zoom_logger.debug("writing result into result.json file")
         result["zoom_call_status"] = False
         result["Timestamp"] = TIME
+        zoom_logger.debug("Writing result to a json file")
         with open('result.json', 'w') as result_file:
-            json.dump(result, result_file, indent=4)
+            json.dump(result, result_file, indent=4,default=str)
     finally:
         zoom_logger.debug("Test completed Disabling DR through registry ")
         obj.setter_dr_registry(state="off")

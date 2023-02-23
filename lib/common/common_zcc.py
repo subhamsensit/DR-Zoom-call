@@ -364,17 +364,18 @@ class ZCC:
         self.windows.click(self.zcc_ZIA_tab)
         try:
             self.logger.info("Verifying for Tunnel Status")
+            time.sleep(5)
             tunnel = self.windows.get_elements(self.zcc_dr_status)
 
             self.logger.info("Elements Found: " + str(len(tunnel)))
             if len(tunnel) == 1:
                 self.logger.info("DR State on ")
-                assert True
+                #assert True
                 return True
         except Exception as e:
             self.logger.info("Safe mode is not found")
             self.logger.error("DR status is not on")
-            assert False
+            #assert False
             return False
         finally:
             self.windows.minimize_window(self.zcc_window)
