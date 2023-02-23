@@ -222,7 +222,7 @@ class Zoom_Team_Dr:
                 zoom_logger.debug("Zoom test passed ")
                 return True
             else:
-                zoom_logger.debug(f"Error occured as {e}")
+                zoom_logger.debug(f"Error occured in zoom call ")
                 # Taking screenshot
                 zoom_logger.debug("Zoom call failed taking screenshot")
                 zoom_screenshot = pyautogui.screenshot()
@@ -234,13 +234,13 @@ class Zoom_Team_Dr:
 
 
         except Exception as e:
-            zoom_logger.debug(f"Error occured as {e}")
+            zoom_logger.debug(f"Exception occured in zoom call {e}")
 
             return False
         finally:
             # closing the apps
 
-            windows.close_current_window()
+           # windows.close_current_window()
             subprocess.call(["taskkill", "/F", "/IM", "Zoom.exe"])
             subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
 
