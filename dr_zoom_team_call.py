@@ -93,6 +93,18 @@ zoom_logger.debug(f"registry path {reg_path}")
 zoom_flag = False
 # this dictionary will save result file which will be read by Centos machine for reading
 result={}
+# declaring path to result path
+path=r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call"
+result_path=os.path.join(path,"result.json")
+
+# Delete the file if exists or else write will fail
+zoom_logger.debug("if result.json file exists delete it ")
+if os.path.exists(result_path):
+    os.remove(result_path)
+    zoom_logger.debug(f"{result_path} has been deleted.")
+else:
+    zoom_logger.debug(f"{result_path} does not exist.")
+
 
 class Zoom_Team_Dr:
     """
@@ -241,7 +253,7 @@ class Zoom_Team_Dr:
             # with open('result.json', 'w') as result_file:
             #     json.dump(result, result_file, indent=4, default=str)
             with open('result.json', 'w') as result_file:
-                result_file.write(json.dumps(result))
+                result_file.write(json.dumps(result,default=str))
             return False
         finally:
             # closing the apps
@@ -257,6 +269,8 @@ if __name__ == "__main__":
         # # declaring objects
         obj = Zoom_Team_Dr()
         zcc_obj = common_zcc.ZCC()
+        zoom_logger.debug(f"current directory path {__file__}")
+
        # checking Zcc is Connected and not in DR state
         # set the registry off and
         # set the registry off and update policy and then check zcc status
@@ -323,11 +337,18 @@ if __name__ == "__main__":
         result["zoom_call_status"] = zoom_flag
         result["Timestamp"] = TIME
         zoom_logger.debug(f"Dictionary value to be written {result}")
-        zoom_logger.debug("Writing result to a json file")
+        zoom_logger.debug(f"Writing result to a json file at {TIME}")
         # with open('result.json', 'w') as result_file:
         #     json.dump(result, result_file, indent=4,default=str)
-        with open('result.json', 'w') as result_file:
-            result_file.write(json.dumps(result,default=str))
+        time.sleep(3)
+
+        try:
+            with open(result_path, 'w') as result_file:
+                result_file.write(json.dumps(result,default=str))
+                #result_file.write(str(result))
+                zoom_logger.debug(f"Wrote {result} to file {result_path}")
+        except Exception as e:
+            zoom_logger.debug(f"Error occured while writing result.json file as {e}")
 
     except Exception as e:
         zoom_logger.debug(f"Error occured as {e}")
@@ -340,8 +361,14 @@ if __name__ == "__main__":
         zoom_logger.debug(f"Writing result{result} to a json file")
         # with open('result.json', 'w') as result_file:
         #     json.dump(result, result_file, indent=4,default=str)
-        with open('result.json', 'w') as result_file:
-            result_file.write(json.dumps(result,default=str))
+        time.sleep(3)
+        try:
+            with open(result_path, 'w') as result_file:
+                result_file.write(json.dumps(result,default=str))
+                zoom_logger.debug(f"{result} written sucessfully to {result_path}")
+        except Exception as e:
+            zoom_logger.debug(f"file write failed error {e} occured")
+
     finally:
         zoom_logger.debug("Test completed Disabling DR through registry ")
         obj.setter_dr_registry(state="off")
