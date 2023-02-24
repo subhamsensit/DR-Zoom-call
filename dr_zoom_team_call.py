@@ -235,7 +235,13 @@ class Zoom_Team_Dr:
 
         except Exception as e:
             zoom_logger.debug(f"Exception occured in zoom call {e}")
-
+            result["zoom_call_status"] = False
+            result["Timestamp"] = TIME
+            zoom_logger.debug("Writing result to a json file")
+            # with open('result.json', 'w') as result_file:
+            #     json.dump(result, result_file, indent=4, default=str)
+            with open('result.json', 'w') as result_file:
+                result_file.write(json.dumps(result))
             return False
         finally:
             # closing the apps
@@ -318,8 +324,10 @@ if __name__ == "__main__":
         result["Timestamp"] = TIME
         zoom_logger.debug(f"Dictionary value to be written {result}")
         zoom_logger.debug("Writing result to a json file")
+        # with open('result.json', 'w') as result_file:
+        #     json.dump(result, result_file, indent=4,default=str)
         with open('result.json', 'w') as result_file:
-            json.dump(result, result_file, indent=4,default=str)
+            result_file.write(json.dumps(result,default=str))
 
     except Exception as e:
         zoom_logger.debug(f"Error occured as {e}")
@@ -329,9 +337,11 @@ if __name__ == "__main__":
         zoom_logger.debug("writing result into result.json file")
         result["zoom_call_status"] = False
         result["Timestamp"] = TIME
-        zoom_logger.debug("Writing result to a json file")
+        zoom_logger.debug(f"Writing result{result} to a json file")
+        # with open('result.json', 'w') as result_file:
+        #     json.dump(result, result_file, indent=4,default=str)
         with open('result.json', 'w') as result_file:
-            json.dump(result, result_file, indent=4,default=str)
+            result_file.write(json.dumps(result,default=str))
     finally:
         zoom_logger.debug("Test completed Disabling DR through registry ")
         obj.setter_dr_registry(state="off")
