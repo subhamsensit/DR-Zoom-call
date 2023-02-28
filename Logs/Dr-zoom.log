@@ -1,38 +1,25 @@
-'2023-02-24 15:28:02,650 ======Zoom Dr log ========
-'2023-02-24 15:28:02,660 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
-'2023-02-24 15:28:02,660 if result.json file exists delete it 
-'2023-02-24 15:28:02,660 C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json has been deleted.
-'2023-02-24 15:28:02,661 current directory path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
-'2023-02-24 15:28:02,661 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-24 15:28:02,661 Registry setting successful
-'2023-02-24 15:28:02,661 returning of registry True
-'2023-02-24 15:28:47,053 opening zoom app
-'2023-02-24 15:28:57,494 Sending meeting ID 
-'2023-02-24 15:29:06,967 sending passcode to Zoom Meeting
-'2023-02-24 15:29:11,432 Looking forname:zoom-test-dr in the meeting
-'2023-02-24 15:29:11,481 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000019DC4B2B2D0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)]
-'2023-02-24 15:29:11,481 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000019DC4B2B2D0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)
-'2023-02-24 15:29:11,481 Zoom Test  text found returning True
-'2023-02-24 15:29:11,481 Zoom test passed 
-'2023-02-24 15:29:11,638 Setting the registry off to trigger DR
-'2023-02-24 15:29:11,641 Setting up Dr registry dr.zia.path-zoomtest.com to On is successful
-'2023-02-24 15:29:11,641 Registry setting successful
-'2023-02-24 15:29:11,641 Return of DR registry on True
-'2023-02-24 15:29:11,641 Updating Zcc after registry to off to set Safe Mode
-'2023-02-24 15:30:07,817 Dr status True 
-'2023-02-24 15:30:07,817 opening zoom app
-'2023-02-24 15:30:17,962 Sending meeting ID 
-'2023-02-24 15:30:27,184 sending passcode to Zoom Meeting
-'2023-02-24 15:30:31,650 Looking forname:zoom-test-dr in the meeting
-'2023-02-24 15:30:31,691 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000019DC4B2AFD0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)]
-'2023-02-24 15:30:31,691 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000019DC4B2AFD0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=757, right=1149, top=508, bottom=546, width=392, height=38, xcenter=953, ycenter=527)
-'2023-02-24 15:30:31,691 Zoom Test  text found returning True
-'2023-02-24 15:30:31,691 Zoom test passed 
-'2023-02-24 15:30:31,832 Zoom call is passed with DR setting zoom_flag to True, Test passed
-'2023-02-24 15:30:31,833 Zoom flag value True 
-'2023-02-24 15:30:31,833 Dictionary value to be written {'zoom_call_status': True, 'Timestamp': datetime.datetime(2023, 2, 24, 15, 28, 2, 649140, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))}
-'2023-02-24 15:30:31,833 Writing result to a json file at 2023-02-24 15:28:02.649140+05:30
-'2023-02-24 15:30:34,833 Wrote {'zoom_call_status': True, 'Timestamp': datetime.datetime(2023, 2, 24, 15, 28, 2, 649140, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} to file C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json
-'2023-02-24 15:30:34,834 Test completed Disabling DR through registry 
-'2023-02-24 15:30:34,834 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-24 15:30:34,834 Registry setting successful
+'2023-02-28 12:31:41,300 ======Zoom Dr log ========
+'2023-02-28 12:31:41,302 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
+'2023-02-28 12:31:41,302 if result.json file exists delete it 
+'2023-02-28 12:31:41,303 C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json has been deleted.
+'2023-02-28 12:31:41,303 current directory path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
+'2023-02-28 12:31:41,303 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-28 12:31:41,303 Registry setting successful
+'2023-02-28 12:31:41,304 returning of registry True
+'2023-02-28 12:32:25,698 opening zoom app
+'2023-02-28 12:32:36,235 Sending meeting ID 
+'2023-02-28 12:32:43,050 sending passcode to Zoom Meeting
+'2023-02-28 12:32:47,580 Looking forname:zoom-test-dr1 in the meeting
+'2023-02-28 12:32:57,654 Exception occured in zoom call Element not found with locator 'name:zoom-test-dr1'
+'2023-02-28 12:32:57,654 Writing result to a json file
+'2023-02-28 12:32:57,826 Zoom call Failed before DR so there is some issue aborting the script
+'2023-02-28 12:32:57,826 Error occured as 
+'2023-02-28 12:32:57,826 Zoom call failed taking screenshot
+'2023-02-28 12:32:57,878 File path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
+'2023-02-28 12:32:57,879 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots
+'2023-02-28 12:32:57,995 writing result into result.json file
+'2023-02-28 12:32:57,995 Writing result{'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 2, 28, 12, 31, 41, 300330, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} to a json file
+'2023-02-28 12:33:00,996 {'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 2, 28, 12, 31, 41, 300330, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} written sucessfully to C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json
+'2023-02-28 12:33:00,997 Test completed Disabling DR through registry 
+'2023-02-28 12:33:00,997 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-02-28 12:33:00,997 Registry setting successful

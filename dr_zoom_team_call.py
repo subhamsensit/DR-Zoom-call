@@ -276,7 +276,10 @@ if __name__ == "__main__":
         # set the registry off and update policy and then check zcc status
         ret = obj.setter_dr_registry(state="off")
         zoom_logger.debug(f"returning of registry {ret}")
-        assert ret == True, "Registry setting failed"
+        # change all assert to exception subham's comment
+        #assert ret == True, "Registry setting failed"
+        if ret !=True:
+            raise ValueError
         # update zcc to get effect of dr registry
         zcc_obj.perform_zcc_update_policy()
         # check tunnel status is on
@@ -285,7 +288,10 @@ if __name__ == "__main__":
         if not tunnel_status:
             # tunnel is not on before DR
             zoom_logger.debug("Tunnel is not up before DR , script will abort")
-        assert tunnel_status == True, "Tunnel is not on ,exiting"
+
+       # assert tunnel_status == True, "Tunnel is not on ,exiting"
+        if tunnel_status !=True:
+            raise ValueError
         # tunnel is up initiate Zoom call
         res_before_dr = obj.zoom_call_start()
         # setting value to zoom call before DR
@@ -293,11 +299,14 @@ if __name__ == "__main__":
         if not res_before_dr:
             # zoom call was not successful
             zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
+            raise ValueError # raising valueerror
         # lets trigger Dr by setting the dr register on
         zoom_logger.debug("Setting the registry off to trigger DR")
         registry_res=obj.setter_dr_registry(state="on")
         zoom_logger.debug(f"Return of DR registry on {registry_res}")
-        assert registry_res, "Setting Dr registry failed"
+       # assert registry_res, "Setting Dr registry failed"
+        if registry_res == False:
+            raise ValueError
         # update policy
         zoom_logger.debug("Updating Zcc after registry to off to set Safe Mode")
         zcc_obj.perform_zcc_update_policy()
@@ -368,6 +377,25 @@ if __name__ == "__main__":
                 zoom_logger.debug(f"{result} written sucessfully to {result_path}")
         except Exception as e:
             zoom_logger.debug(f"file write failed error {e} occured")
+    except ValueError:
+        zoom_logger.debug("Value error occured returning False")
+        # Taking screenshot
+        zoom_logger.debug("Zoom call failed taking screenshot")
+        obj.screenshot_zoom()
+        zoom_logger.debug("writing result into result.json file")
+        result["zoom_call_status"] = False
+        result["Timestamp"] = TIME
+        zoom_logger.debug(f"Writing result{result} to a json file")
+        # with open('result.json', 'w') as result_file:
+        #     json.dump(result, result_file, indent=4,default=str)
+        time.sleep(3)
+        try:
+            with open(result_path, 'w') as result_file:
+                result_file.write(json.dumps(result, default=str))
+                zoom_logger.debug(f"{result} written sucessfully to {result_path}")
+        except Exception as e:
+            zoom_logger.debug(f"file write failed error {e} occured")
+
 
     finally:
         zoom_logger.debug("Test completed Disabling DR through registry ")
