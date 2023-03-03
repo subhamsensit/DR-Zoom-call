@@ -198,9 +198,9 @@ class Zoom_Team_Dr:
         meeting_text_element = f"name:{meeting_text}"
         try:
             zoom_logger.debug("opening zoom app")
-            windows.windows_search("Zoom", 3)
+            windows.windows_search("Zoom", 10)
             zoom_window = "name:\"Zoom Cloud Meetings\""
-            windows.control_window(zoom_window, 3)
+            windows.control_window(zoom_window, 10)
             windows.click("name:\"Join a Meeting\"", 2)
             # it will go to new window
 
