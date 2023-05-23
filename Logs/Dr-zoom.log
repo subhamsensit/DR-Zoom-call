@@ -1,24 +1,38 @@
-'2023-05-23 10:52:47,278 ======Zoom Dr log ========
-'2023-05-23 10:52:47,278 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
-'2023-05-23 10:52:47,278 if result.json file exists delete it 
-'2023-05-23 10:52:47,278 C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json has been deleted.
-'2023-05-23 10:52:47,278 current directory path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
-'2023-05-23 10:52:47,278 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-05-23 10:52:47,278 Registry setting successful
-'2023-05-23 10:52:47,278 returning of registry True
-'2023-05-23 10:53:31,917 opening zoom app
-'2023-05-23 10:53:46,912 Sending meeting ID 
-'2023-05-23 10:53:53,800 sending passcode to Zoom Meeting
-'2023-05-23 10:54:17,276 Exception occured in zoom call Could not locate window with locator: 'name:"Waiting for Host"' (timeout: 10)
-'2023-05-23 10:54:17,276 Writing result to a json file
-'2023-05-23 10:54:17,417 Zoom call Failed before DR so there is some issue aborting the script
-'2023-05-23 10:54:17,417 Error occured as 
-'2023-05-23 10:54:17,417 Zoom call failed taking screenshot
-'2023-05-23 10:54:17,463 File path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
-'2023-05-23 10:54:17,463 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots
-'2023-05-23 10:54:17,588 writing result into result.json file
-'2023-05-23 10:54:17,588 Writing result{'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 5, 23, 10, 52, 47, 278094, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} to a json file
-'2023-05-23 10:54:20,597 {'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 5, 23, 10, 52, 47, 278094, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} written sucessfully to C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json
-'2023-05-23 10:54:20,597 Test completed Disabling DR through registry 
-'2023-05-23 10:54:20,597 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-05-23 10:54:20,597 Registry setting successful
+'2023-05-23 17:07:39,265 ======Zoom Dr log ========
+'2023-05-23 17:07:39,266 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
+'2023-05-23 17:07:39,266 if result.json file exists delete it 
+'2023-05-23 17:07:39,266 C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json has been deleted.
+'2023-05-23 17:07:39,267 current directory path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
+'2023-05-23 17:07:39,267 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-05-23 17:07:39,267 Registry setting successful
+'2023-05-23 17:07:39,267 returning of registry True
+'2023-05-23 17:08:24,937 opening zoom app
+'2023-05-23 17:08:39,815 Sending meeting ID 
+'2023-05-23 17:08:46,503 sending passcode to Zoom Meeting
+'2023-05-23 17:08:50,647 Looking forname:zoom-test-dr in the meeting
+'2023-05-23 17:08:50,684 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000022D5656B450>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=352, right=1568, top=48, bottom=80, width=1216, height=32, xcenter=960, ycenter=64)]
+'2023-05-23 17:08:50,684 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000022D5656B450>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=352, right=1568, top=48, bottom=80, width=1216, height=32, xcenter=960, ycenter=64)
+'2023-05-23 17:08:50,684 Zoom Test  text found returning True
+'2023-05-23 17:08:50,684 Zoom test passed 
+'2023-05-23 17:08:51,024 Setting the registry off to trigger DR
+'2023-05-23 17:08:51,025 Setting up Dr registry dr.zia.path-zoomtest.com to On is successful
+'2023-05-23 17:08:51,025 Registry setting successful
+'2023-05-23 17:08:51,025 Return of DR registry on True
+'2023-05-23 17:08:51,025 Updating Zcc after registry to off to set Safe Mode
+'2023-05-23 17:09:48,300 Dr status True 
+'2023-05-23 17:09:48,301 opening zoom app
+'2023-05-23 17:10:03,322 Sending meeting ID 
+'2023-05-23 17:10:12,327 sending passcode to Zoom Meeting
+'2023-05-23 17:10:16,343 Looking forname:zoom-test-dr in the meeting
+'2023-05-23 17:10:16,389 zoom call elements [WindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000022D5656A2D0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=352, right=1568, top=48, bottom=80, width=1216, height=32, xcenter=960, ycenter=64)]
+'2023-05-23 17:10:16,389 printing zoom call elementsWindowsElement(item=<uiautomation.uiautomation.TextControl object at 0x0000022D5656A2D0>, locator='name:zoom-test-dr', name='zoom-test-dr', automation_id='', control_type='TextControl', class_name='', left=352, right=1568, top=48, bottom=80, width=1216, height=32, xcenter=960, ycenter=64)
+'2023-05-23 17:10:16,389 Zoom Test  text found returning True
+'2023-05-23 17:10:16,389 Zoom test passed 
+'2023-05-23 17:10:16,678 Zoom call is passed with DR setting zoom_flag to True, Test passed
+'2023-05-23 17:10:16,678 Zoom flag value True 
+'2023-05-23 17:10:16,679 Dictionary value to be written {'zoom_call_status': True, 'Timestamp': datetime.datetime(2023, 5, 23, 17, 7, 39, 265895, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))}
+'2023-05-23 17:10:16,679 Writing result to a json file at 2023-05-23 17:07:39.265895+05:30
+'2023-05-23 17:10:19,681 Wrote {'zoom_call_status': True, 'Timestamp': datetime.datetime(2023, 5, 23, 17, 7, 39, 265895, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} to file C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json
+'2023-05-23 17:10:19,682 Test completed Disabling DR through registry 
+'2023-05-23 17:10:19,682 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-05-23 17:10:19,683 Registry setting successful

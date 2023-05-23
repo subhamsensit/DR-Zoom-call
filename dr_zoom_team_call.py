@@ -208,6 +208,7 @@ class Zoom_Team_Dr:
             # it will go to new window
 
             windows.control_window("name:\"Join Meeting\"")
+            #windows.control_window("name:\"Zoom\"")
             zoom_logger.debug("Sending meeting ID ")
             time.sleep(2)
             windows.send_keys("name:\"Meeting ID or Personal Link Name\"", meeting_id)
@@ -222,8 +223,8 @@ class Zoom_Team_Dr:
             # click join meeting button
             windows.click("name:\"Join Meeting\"")
             # switch to waiting for host window
-
-            windows.control_window("name:\"Waiting for Host\"")
+            #new changes
+            windows.control_window("name:\"Zoom\"")
             # get elements from zoom window
             zoom_logger.debug(f"Looking for{meeting_text_element} in the meeting")
             meeting_text = windows.get_elements(meeting_text_element)
