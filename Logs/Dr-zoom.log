@@ -1,25 +1,24 @@
-'2023-02-28 12:31:41,300 ======Zoom Dr log ========
-'2023-02-28 12:31:41,302 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
-'2023-02-28 12:31:41,302 if result.json file exists delete it 
-'2023-02-28 12:31:41,303 C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json has been deleted.
-'2023-02-28 12:31:41,303 current directory path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
-'2023-02-28 12:31:41,303 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-28 12:31:41,303 Registry setting successful
-'2023-02-28 12:31:41,304 returning of registry True
-'2023-02-28 12:32:25,698 opening zoom app
-'2023-02-28 12:32:36,235 Sending meeting ID 
-'2023-02-28 12:32:43,050 sending passcode to Zoom Meeting
-'2023-02-28 12:32:47,580 Looking forname:zoom-test-dr1 in the meeting
-'2023-02-28 12:32:57,654 Exception occured in zoom call Element not found with locator 'name:zoom-test-dr1'
-'2023-02-28 12:32:57,654 Writing result to a json file
-'2023-02-28 12:32:57,826 Zoom call Failed before DR so there is some issue aborting the script
-'2023-02-28 12:32:57,826 Error occured as 
-'2023-02-28 12:32:57,826 Zoom call failed taking screenshot
-'2023-02-28 12:32:57,878 File path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
-'2023-02-28 12:32:57,879 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots
-'2023-02-28 12:32:57,995 writing result into result.json file
-'2023-02-28 12:32:57,995 Writing result{'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 2, 28, 12, 31, 41, 300330, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} to a json file
-'2023-02-28 12:33:00,996 {'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 2, 28, 12, 31, 41, 300330, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} written sucessfully to C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json
-'2023-02-28 12:33:00,997 Test completed Disabling DR through registry 
-'2023-02-28 12:33:00,997 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
-'2023-02-28 12:33:00,997 Registry setting successful
+'2023-05-23 10:52:47,278 ======Zoom Dr log ========
+'2023-05-23 10:52:47,278 registry path SOFTWARE\WOW6432Node\Zscaler Inc.\Zscaler
+'2023-05-23 10:52:47,278 if result.json file exists delete it 
+'2023-05-23 10:52:47,278 C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json has been deleted.
+'2023-05-23 10:52:47,278 current directory path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
+'2023-05-23 10:52:47,278 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-05-23 10:52:47,278 Registry setting successful
+'2023-05-23 10:52:47,278 returning of registry True
+'2023-05-23 10:53:31,917 opening zoom app
+'2023-05-23 10:53:46,912 Sending meeting ID 
+'2023-05-23 10:53:53,800 sending passcode to Zoom Meeting
+'2023-05-23 10:54:17,276 Exception occured in zoom call Could not locate window with locator: 'name:"Waiting for Host"' (timeout: 10)
+'2023-05-23 10:54:17,276 Writing result to a json file
+'2023-05-23 10:54:17,417 Zoom call Failed before DR so there is some issue aborting the script
+'2023-05-23 10:54:17,417 Error occured as 
+'2023-05-23 10:54:17,417 Zoom call failed taking screenshot
+'2023-05-23 10:54:17,463 File path C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\dr_zoom_team_call.py
+'2023-05-23 10:54:17,463 file path of screen shot C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots
+'2023-05-23 10:54:17,588 writing result into result.json file
+'2023-05-23 10:54:17,588 Writing result{'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 5, 23, 10, 52, 47, 278094, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} to a json file
+'2023-05-23 10:54:20,597 {'zoom_call_status': False, 'Timestamp': datetime.datetime(2023, 5, 23, 10, 52, 47, 278094, tzinfo=zoneinfo.ZoneInfo(key='Asia/Kolkata'))} written sucessfully to C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\result.json
+'2023-05-23 10:54:20,597 Test completed Disabling DR through registry 
+'2023-05-23 10:54:20,597 Setting up Dr registry dr.zia.path-zoomtest.com to Off is successful
+'2023-05-23 10:54:20,597 Registry setting successful

@@ -32,14 +32,13 @@ Have monitor if fails, send an email - Separate script with Prod DR DB
 
 """
 
-
-import sys,os
+import sys, os
 from os import path
 
-#current_directory = os.getcwd()
+# current_directory = os.getcwd()
 # adding library folder
 # current library directory
-#sys.path.append(os.path.join(current_directory,"lib","common"))
+# sys.path.append(os.path.join(current_directory,"lib","common"))
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 from lib.common import common_zcc
@@ -56,21 +55,19 @@ from datetime import datetime
 import json
 from zoneinfo import ZoneInfo
 
-
-
 # declaring object of Windows RPA apackage
 windows = Windows()
 # setting up logging
 
 LOG_TIMESTAMP_FORMAT = "%Y-%m-%d %H-%M-%S"
 
-#TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
+# TIME = datetime.now().strftime(LOG_TIMESTAMP_FORMAT)
 TIME = datetime.now(tz=ZoneInfo('Asia/Kolkata'))
 
 # below logger will create log file db_certification.log under current directory
 # file path for logging
 # hardcoded file path need to edit in case of change
-current_directory=r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call"
+current_directory = r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call"
 log_path_certification = os.path.join(current_directory, "Logs", "Dr-zoom.log")
 zoom_logger = logging.getLogger("Dr")
 zoom_logger.setLevel(logging.DEBUG)
@@ -92,10 +89,10 @@ zoom_logger.debug(f"registry path {reg_path}")
 # setting zoom_flag to get the result of zoom
 zoom_flag = False
 # this dictionary will save result file which will be read by Centos machine for reading
-result={}
+result = {}
 # declaring path to result path
-path=r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call"
-result_path=os.path.join(path,"result.json")
+path = r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call"
+result_path = os.path.join(path, "result.json")
 
 # Delete the file if exists or else write will fail
 zoom_logger.debug("if result.json file exists delete it ")
@@ -112,22 +109,22 @@ class Zoom_Team_Dr:
     """
 
     def __init__(self):
-         """
-         This constructor will initialize values required for zoom call
-         """
-         self.zoom_test_result={}
+        """
+        This constructor will initialize values required for zoom call
+        """
+        self.zoom_test_result = {}
 
     def screenshot_zoom(self):
         """
         This function will take screenshot
         """
-        time_now=datetime.now()
+        time_now = datetime.now()
         zoom_screenshot = pyautogui.screenshot()
-        day=str(time_now)[0:10] # this will give only date
-        fail_iamge_name=f"zoom-fail-{day}.png"
+        day = str(time_now)[0:10]  # this will give only date
+        fail_iamge_name = f"zoom-fail-{day}.png"
         zoom_logger.debug(f"File path {__file__}")
-        file_path=r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots"
-        file=os.path.join(file_path,fail_iamge_name)
+        file_path = r"C:\Users\Zscaler\Documents\backup-dr-db\MR-1993-DR-Zoom-call\Zoom_screenshots"
+        file = os.path.join(file_path, fail_iamge_name)
         zoom_logger.debug(f"file path of screen shot {file_path}")
         zoom_screenshot.save(file)
 
@@ -200,7 +197,13 @@ class Zoom_Team_Dr:
             zoom_logger.debug("opening zoom app")
             windows.windows_search("Zoom", 10)
             zoom_window = "name:\"Zoom Cloud Meetings\""
-            windows.control_window(zoom_window, 10)
+            try:
+                windows.control_window(zoom_window, 10)
+            except:
+                time.sleep(10)
+                windows.windows_search("Zoom", 10)
+                windows.control_window(zoom_window, 10)
+
             windows.click("name:\"Join a Meeting\"", 2)
             # it will go to new window
 
@@ -253,12 +256,12 @@ class Zoom_Team_Dr:
             # with open('result.json', 'w') as result_file:
             #     json.dump(result, result_file, indent=4, default=str)
             with open('result.json', 'w') as result_file:
-                result_file.write(json.dumps(result,default=str))
+                result_file.write(json.dumps(result, default=str))
             return False
         finally:
             # closing the apps
 
-           # windows.close_current_window()
+            # windows.close_current_window()
             subprocess.call(["taskkill", "/F", "/IM", "Zoom.exe"])
             subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
 
@@ -271,26 +274,26 @@ if __name__ == "__main__":
         zcc_obj = common_zcc.ZCC()
         zoom_logger.debug(f"current directory path {__file__}")
 
-       # checking Zcc is Connected and not in DR state
+        # checking Zcc is Connected and not in DR state
         # set the registry off and
         # set the registry off and update policy and then check zcc status
         ret = obj.setter_dr_registry(state="off")
         zoom_logger.debug(f"returning of registry {ret}")
         # change all assert to exception subham's comment
-        #assert ret == True, "Registry setting failed"
-        if ret !=True:
+        # assert ret == True, "Registry setting failed"
+        if ret != True:
             raise ValueError
         # update zcc to get effect of dr registry
         zcc_obj.perform_zcc_update_policy()
         # check tunnel status is on
-        tunnel_status= zcc_obj.verify_zcc_tunnel_on()
+        tunnel_status = zcc_obj.verify_zcc_tunnel_on()
         # checking zcc is connected service status on
         if not tunnel_status:
             # tunnel is not on before DR
             zoom_logger.debug("Tunnel is not up before DR , script will abort")
 
-       # assert tunnel_status == True, "Tunnel is not on ,exiting"
-        if tunnel_status !=True:
+        # assert tunnel_status == True, "Tunnel is not on ,exiting"
+        if tunnel_status != True:
             raise ValueError
         # tunnel is up initiate Zoom call
         res_before_dr = obj.zoom_call_start()
@@ -299,21 +302,21 @@ if __name__ == "__main__":
         if not res_before_dr:
             # zoom call was not successful
             zoom_logger.debug("Zoom call Failed before DR so there is some issue aborting the script")
-            raise ValueError # raising valueerror
+            raise ValueError  # raising valueerror
         # lets trigger Dr by setting the dr register on
         zoom_logger.debug("Setting the registry off to trigger DR")
-        registry_res=obj.setter_dr_registry(state="on")
+        registry_res = obj.setter_dr_registry(state="on")
         zoom_logger.debug(f"Return of DR registry on {registry_res}")
-       # assert registry_res, "Setting Dr registry failed"
+        # assert registry_res, "Setting Dr registry failed"
         if registry_res == False:
             raise ValueError
         # update policy
         zoom_logger.debug("Updating Zcc after registry to off to set Safe Mode")
         zcc_obj.perform_zcc_update_policy()
-        time.sleep(7) # waiting 7 seconds
+        time.sleep(7)  # waiting 7 seconds
         # check in UI ZCC is in DR state
         # open zcc
-        dr_status=zcc_obj.verify_zcc_dr_status()
+        dr_status = zcc_obj.verify_zcc_dr_status()
         zoom_logger.debug(f"Dr status {dr_status} ")
         # check dr status
         # if res True Zoom call succeded
@@ -329,8 +332,8 @@ if __name__ == "__main__":
         if dr_status:
             # initiate a zoom call in dr state
             ret = obj.zoom_call_start()
-            if ret :
-                zoom_flag = True # if zoom is successful in dr state , test passed
+            if ret:
+                zoom_flag = True  # if zoom is successful in dr state , test passed
                 zoom_logger.debug("Zoom call is passed with DR setting zoom_flag to True, Test passed")
                 zoom_logger.debug(f"Zoom flag value {zoom_flag} ")
             else:
@@ -353,8 +356,8 @@ if __name__ == "__main__":
 
         try:
             with open(result_path, 'w') as result_file:
-                result_file.write(json.dumps(result,default=str))
-                #result_file.write(str(result))
+                result_file.write(json.dumps(result, default=str))
+                # result_file.write(str(result))
                 zoom_logger.debug(f"Wrote {result} to file {result_path}")
         except Exception as e:
             zoom_logger.debug(f"Error occured while writing result.json file as {e}")
@@ -373,7 +376,7 @@ if __name__ == "__main__":
         time.sleep(3)
         try:
             with open(result_path, 'w') as result_file:
-                result_file.write(json.dumps(result,default=str))
+                result_file.write(json.dumps(result, default=str))
                 zoom_logger.debug(f"{result} written sucessfully to {result_path}")
         except Exception as e:
             zoom_logger.debug(f"file write failed error {e} occured")
@@ -402,4 +405,3 @@ if __name__ == "__main__":
         obj.setter_dr_registry(state="off")
         subprocess.call(["taskkill", "/F", "/IM", "Zoom.exe"])
         subprocess.call(["taskkill", "/F", "/IM", "chrome.exe"])
-
